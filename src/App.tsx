@@ -11,7 +11,7 @@ function App() {
     // - - - - - STATES - - - - - //
     const [start, setStart] = useState<boolean>();
     const [endGameBtn, setEndGameBtn] = useState<boolean>();
-    let [time, setTime] = useState<number>(5);
+    let [time, setTime] = useState<number>(30);
     let [score, setScore] = useState<number>(0);
     const [printScore, setPrintScore] = useState<boolean>();
     let [currentHighScore, setCurrentHighScore] = useState<number>();
