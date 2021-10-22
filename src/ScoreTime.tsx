@@ -1,4 +1,5 @@
 import { useState } from 'react';
+const startAudioSrc = require('./sounds/start.wav');
 
 interface Props {
     startGame(info: boolean): void;
@@ -9,12 +10,14 @@ interface Props {
 
 function ScoreTime(props: Props) {
     let { startGame, endGameBtn, score, time } = props;
+    let startAudio = new Audio(startAudioSrc.default);
 
     // STATE
     let [startButton, setStartButton] = useState<boolean>(false);
 
     // - - - - - CLICK ON START - - - - - //
     const start = () => {
+        startAudio.play();
         startGame(true);
         setStartButton(true);
     };

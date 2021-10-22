@@ -3,6 +3,7 @@ import GameBoard from './GameBoard';
 import ScoreTime from './ScoreTime';
 import DisplayScore from './DisplayScore';
 import DisplayInfo from './DisplayInfo';
+const endAudioSrc = require('./sounds/gameover.wav');
 
 let timer: any;
 
@@ -10,11 +11,12 @@ function App() {
     // - - - - - STATES - - - - - //
     const [start, setStart] = useState<boolean>();
     const [endGameBtn, setEndGameBtn] = useState<boolean>();
-    let [time, setTime] = useState<number>(30);
+    let [time, setTime] = useState<number>(5);
     let [score, setScore] = useState<number>(0);
     const [printScore, setPrintScore] = useState<boolean>();
     let [currentHighScore, setCurrentHighScore] = useState<number>();
     let [newHighScore, setNewHighScore] = useState<number>();
+    let gameOverAudio = new Audio(endAudioSrc.default);
 
     // - - - - - USE EFFECTS - - - - - //
     // START TIMER
@@ -27,12 +29,19 @@ function App() {
     // CLICK ON END GAME
     useEffect(() => {
         if (endGameBtn) {
+            gameOverAudio.play();
             setStart(false);
             setPrintScore(true);
             checkHighScore();
             document.getElementById('startBtn')!.style.display = 'none';
         }
     }, [endGameBtn]);
+
+    useEffect(() => {
+        if (time === 0) {
+            gameOverAudio.play();
+        }
+    }, [start]);
 
     // CHECK LOCALSTORAGE
     useEffect(() => {
@@ -64,7 +73,7 @@ function App() {
     };
 
     const checkHighScore = () => {
-        if (currentHighScore! < score) {
+        if (!start && currentHighScore! < score) {
             setNewHighScore(score);
             let stringHS = score.toString();
             localStorage.setItem('HS', stringHS);

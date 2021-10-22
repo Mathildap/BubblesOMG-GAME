@@ -6,6 +6,7 @@ import PurpleCandy from './images/purple.png';
 import RedCandy from './images/red.png';
 import YellowCandy from './images/yellow.png';
 import blank from './images/blank.png';
+const bubbleAudioSrc = require('./sounds/bubble2.wav');
 
 interface Props {
     scoreHandler(score: number): void;
@@ -26,6 +27,7 @@ const candyColors: Array<string> = [
 
 function GameBoard(props: Props) {
     let { scoreHandler } = props;
+    let bubbleAudio = new Audio(bubbleAudioSrc.default);
 
     // - - - - - STATES - - - - - //
     const [currentColorArr, setCurrentColorArr] = useState<string[]>([]);
@@ -69,6 +71,7 @@ function GameBoard(props: Props) {
 
                 // SEND SCORE
                 scoreHandler(4);
+                bubbleAudio.play();
                 return true;
             }
         }
@@ -98,6 +101,7 @@ function GameBoard(props: Props) {
 
                 // SEND SCORE
                 scoreHandler(4);
+                bubbleAudio.play();
                 return true;
             }
         }
@@ -121,6 +125,7 @@ function GameBoard(props: Props) {
 
                 // SEND SCORE
                 scoreHandler(3);
+                bubbleAudio.play();
                 return true;
             }
         }
@@ -149,6 +154,7 @@ function GameBoard(props: Props) {
 
                 // SEND SCORE
                 scoreHandler(3);
+                bubbleAudio.play();
                 return true;
             }
         }
